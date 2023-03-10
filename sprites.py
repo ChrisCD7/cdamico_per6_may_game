@@ -62,7 +62,6 @@ class Mob(Sprite):
         self.acc = vec(0,0)
         self.confric = 0.5
 
-
     # This is a way to keep sprite on screen 
     def inbounds(self):
         if self.rect.x > WIDTH:
@@ -75,13 +74,27 @@ class Mob(Sprite):
             self.pos.y = 600
             
     def behavior(self):
-        # print(self.vel)
-        self.acc.x = -2
-    
+        # acc go up
+        self.acc.y = -MOB_ACC
+        # self.acc.x = -MOB_ACC 
+        # self.acc.y = MOB_ACC
+        # self.acc.x = MOB_ACC
+        if self.rect.x > WIDTH:
+            print("I'm off the right screen...")
+        if self.rect.x < 0:
+            print("I'm off the left screen...")
+        if self.rect.y < 0:
+            print("I'm off the top screen...")
+            # reduces vel
+            self.vel *= -1
+            self.acc *= -1
+            self.pos.y <= 0
+        if self.rect.y > HEIGHT:
+            print("I'm off the bottom screen...")
 
     def update(self):
         # self.inbounds()
-        self.acc = self.vel * -0.2
+        self.acc = self.vel * MOB_FRICTION
         self.vel += self.acc
         self.behavior()
         self.pos += self.vel + 0.5 * self.acc
