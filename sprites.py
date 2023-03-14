@@ -99,4 +99,3 @@ class Mob(Sprite):
         self.behavior()
         self.pos += self.vel + 0.5 * self.acc
         self.rect.center = self.pos 
-
