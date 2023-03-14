@@ -35,22 +35,13 @@ all_sprites = pg.sprite.Group()
 enemies = pg.sprite.Group()
 player = Player()
 
-enemy1 = Mob(80,80)
-enemy2 = Mob(80,80)
-enemy3 = Mob(80,80)
-enemy4 = Mob(80,80)
-
 all_sprites.add(player)
-all_sprites.add(enemy1)
-all_sprites.add(enemy2)
-all_sprites.add(enemy3)
-all_sprites.add(enemy4)
-
 
 for i in range(1,20):
     # instantiate 20 mobs
-    m = Mob(randint(30,90)), randint(30,90)
+    m = Mob(randint(30,90), randint(30,90))
     all_sprites.add(m)
+    enemies.add(m)
 # game loop
 
 while RUNNING:
