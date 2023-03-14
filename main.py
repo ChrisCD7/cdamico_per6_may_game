@@ -46,6 +46,11 @@ all_sprites.add(enemy2)
 all_sprites.add(enemy3)
 all_sprites.add(enemy4)
 
+
+for i in range(1,20):
+    # instantiate 20 mobs
+    m = Mob(randint(30,90)), randint(30,90)
+    all_sprites.add(m)
 # game loop
 
 while RUNNING:
