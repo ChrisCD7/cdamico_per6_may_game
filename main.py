@@ -3,6 +3,7 @@
 
 # Sources: http://kidscancode.org/blog/2016/08/pg_1-1_getting-started/
 # Sources: 
+# testing github changes
 
 # import libs
 import pygame as pg
@@ -21,7 +22,6 @@ def get_mouse_now():
     x,y = pg.mouse.get_pos()
     return (x,y)
 
-
 # init pg and create window
 pg.init()
 # init sound mixer
@@ -30,15 +30,21 @@ screen = pg.display.set_mode((WIDTH, HEIGHT))
 pg.display.set_caption("My first game...")
 clock = pg.time.Clock() 
 
+
 all_sprites = pg.sprite.Group()
 enemies = pg.sprite.Group()
 player = Player()
 
 enemy1 = Mob(80,80)
+enemy2 = Mob(80,80)
+enemy3 = Mob(80,80)
+enemy4 = Mob(80,80)
+
 all_sprites.add(player)
 all_sprites.add(enemy1)
-# all_sprites.add(testSprite)
-
+all_sprites.add(enemy2)
+all_sprites.add(enemy3)
+all_sprites.add(enemy4)
 
 # game loop
 
@@ -60,7 +66,7 @@ while RUNNING:
         # print(enemies)
         pass
     ### draw and render section of game loop
-    screen.fill(RED)
+    screen.fill(BLUE)
     all_sprites.draw(screen)
     # double buffering draws frames for entire screen
     pg.display.flip()
