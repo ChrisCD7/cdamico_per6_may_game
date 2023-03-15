@@ -14,7 +14,7 @@ class Player(Sprite):
     def __init__(self):
         Sprite.__init__(self)
         self.image = pg.Surface((50,50))
-        self.image.fill(BLACK)
+        self.image.fill(WHITE)
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH/2, HEIGHT/2)
         self.pos = vec(WIDTH/2, HEIGHT/2)
@@ -55,12 +55,13 @@ class Player(Sprite):
         self.rect.center = self.pos
 
 class Mob(Sprite):
-    def __init__(self,width,height):
+    def __init__(self,width,height,color):
         Sprite.__init__(self)
         self.width = width
         self.height = height
         self.image = pg.Surface((self.width,self.height))
-        self.image.fill(RED)
+        self.color = color
+        self.image.fill(self.color)
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH/2, HEIGHT/2)
         self.pos = vec(WIDTH/2, HEIGHT/2)
