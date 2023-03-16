@@ -38,11 +38,19 @@ player = Player()
 all_sprites.add(player)
 player.pos = 0,0
 # for loop creates mobs
-for i in range(0,20):
+for i in range(0,25000):
     # instantiate 20 mobs
     m = Mob(randint(30,90), randint(30,90), randint(0,100))
     enemies.add(m)
     all_sprites.add(m)
+
+def draw_text(text, size, color, x, y):
+    font_name = pg.font.match_font('times new roman')
+    font = pg.font.Font(font_name, size)
+    text_surface = font.render(text, True, color)
+    text_rect = text_surface.get_rect()
+    text_rect.midtop = (x,y)
+    screen.blit(text_surface, text_rect)
 
 # game loop
 
@@ -60,11 +68,19 @@ while RUNNING:
     all_sprites.update()
 
     blocks_hit_list = pg.sprite.spritecollide(player, enemies, True)
+    if blocks_hit_list:
+        SCORE += 1
+    
     for block in blocks_hit_list:
         # print(enemies)
         pass
+
+
     ### draw and render section of game loop
     screen.fill(BLUE)
+    draw_text("Score: " + str(SCORE), 22, WHITE, 35, 0)
+    # if blocks_hit_list:
+
     all_sprites.draw(screen)
     # double buffering draws frames for entire screen
     pg.display.flip()
