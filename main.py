@@ -37,9 +37,11 @@ player = Player()
 
 all_sprites.add(player)
 player.pos = 0,0
+# for loop creates mobs
 for i in range(0,20):
     # instantiate 20 mobs
     m = Mob(randint(30,90), randint(30,90), randint(0,100))
+    enemies.add(m)
     all_sprites.add(m)
 
 # game loop
