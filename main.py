@@ -38,7 +38,7 @@ player = Player()
 all_sprites.add(player)
 player.pos = 0,0
 # for loop creates mobs
-for i in range(0,25000):
+for i in range(0,150):
     # instantiate 20 mobs
     m = Mob(randint(30,90), randint(30,90), randint(0,100))
     enemies.add(m)
@@ -62,11 +62,25 @@ while RUNNING:
         # check for window closing
         if event.type == pg.QUIT:
             RUNNING = False
+        if event.type == pg.KEYDOWN:
+            if event.type == pg.K_ESCAPE:
+                PAUSED = True
             # break
     # print(get_mouse_now())
     ### update section of game loop (if updates take longer the 1/30th of a second, you will get laaaaag...)
-    all_sprites.update()
+   
+    ################ PAUSE #################
+    keystate = pg.key.get_pressed()
 
+    if keystate[pg.K_ESCAPE]:
+        PAUSED = True
+    if not PAUSED:
+        all_sprites.update()
+        enemies.update()
+    elif PAUSED == True:
+        keystate[pg.K_ESCAPE]
+        PAUSED = False
+    ########## collision ############
     blocks_hit_list = pg.sprite.spritecollide(player, enemies, True)
     if blocks_hit_list:
         SCORE += 1
@@ -75,6 +89,8 @@ while RUNNING:
         # print(enemies)
         pass
 
+    
+        
 
     ### draw and render section of game loop
     screen.fill(BLUE)

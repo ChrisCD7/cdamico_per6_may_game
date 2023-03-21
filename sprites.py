@@ -13,6 +13,7 @@ from random import randint
 class Player(Sprite):
     def __init__(self):
         Sprite.__init__(self)
+        # these are properties of class
         self.image = pg.Surface((50,50))
         self.image.fill(WHITE)
         self.rect = self.image.get_rect()
@@ -33,17 +34,23 @@ class Player(Sprite):
             self.acc.y = PLAYER_ACC
         if keystate[pg.K_d]:
             self.acc.x = PLAYER_ACC
-    # ...
+    ############# inbounds ###############
     def inbounds(self):
         if self.rect.x > WIDTH - 50:
             self.pos.x = WIDTH - 25
             self.vel.x = 0
             print("i am off the right side of the screen...")
         if self.rect.x < 0:
+            self.pos.x = 25
+            self.vel.x = 0
             print("i am off the left side of the screen...")
-        if self.rect.y > HEIGHT:
+        if self.rect.y > HEIGHT - 50:
+            self.pos.y = HEIGHT - 25
+            self.vel.y = 0 
             print("i am off the bottom of the screen")
         if self.rect.y < 0:
+            self.pos.y = 25
+            self.vel.y = 0
             print("i am off the top of the screen...")
 
     def update(self):
@@ -53,7 +60,7 @@ class Player(Sprite):
         self.vel += self.acc
         self.pos += self.vel + 0.5 * self.acc
         self.rect.center = self.pos
-
+################ MOB CLASS ####################
 class Mob(Sprite):
     def __init__(self,width,height,color):
         Sprite.__init__(self)
@@ -68,7 +75,7 @@ class Mob(Sprite):
         self.vel = vec(randint(1,5),randint(1,5))
         self.acc = vec(1,1)
         self.cofric = 0.01
-    # ...
+    
     def inbounds(self):
         if self.rect.x > WIDTH:
             self.vel.x *= -1
