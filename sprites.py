@@ -11,9 +11,10 @@ from random import randint
 # player class
 
 class Player(Sprite):
-    def __init__(self):
+    def __init__(self, game):
         Sprite.__init__(self)
         # these are properties of class
+        self.game = game
         self.image = pg.Surface((50,50))
         self.image.fill(WHITE)
         self.rect = self.image.get_rect()
@@ -52,6 +53,13 @@ class Player(Sprite):
             self.pos.y = 25
             self.vel.y = 0
             print("i am off the top of the screen...")
+    
+    
+    def jump(self):
+        hits = pg.sprite.spritecollide(self, self.game.platforms, False)
+
+
+
 
     def update(self):
         self.inbounds()
