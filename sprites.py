@@ -26,7 +26,6 @@ class Player(Sprite):
         self.canjump = False
     def input(self):
         keystate = pg.key.get_pressed()
-
         if keystate[pg.K_w]:
             self.acc.y = -PLAYER_ACC
         if keystate[pg.K_a]:
@@ -35,6 +34,10 @@ class Player(Sprite):
             self.acc.y = PLAYER_ACC
         if keystate[pg.K_d]:
             self.acc.x = PLAYER_ACC
+    ########### JUMP #################
+    def jump(self):
+        self.rect.x += 1
+        hits = pg.sprite.spritecollide(self, self.game.platforms, True)
     ############# inbounds ###############
     def inbounds(self):
         if self.rect.x > WIDTH - 50:
@@ -53,20 +56,24 @@ class Player(Sprite):
             self.pos.y = 25
             self.vel.y = 0
             print("i am off the top of the screen...")
-    
-    
-    def jump(self):
-        hits = pg.sprite.spritecollide(self, self.game.platforms, False)
+    ############## MOB COLLIDE ################
+    def mob_collide(self):
+        hits = pg.sprite.spritecollide(self, self.game.enemies, True)
+        if hits:
+            print("you collided with an enemy...")
+            self.game.score += 1
+            print(SCORE)
 
 
-
-
+    ############ UPDATE ############
     def update(self):
+        self.mob_collide()
         self.inbounds()
-        self.acc = self.vel * PLAYER_FRICTION
+        self.acc = (0, PLAYER_GRAV)
+        # self.acc = self.vel * PLAYER_FRICTION
         self.input()
         self.vel += self.acc
-        self.pos += self.vel + 0.5 * self.acc
+        # self.pos += self.vel + 0.5 * self.acc
         self.rect.center = self.pos
 ################ MOB CLASS ####################
 class Mob(Sprite):
@@ -103,3 +110,18 @@ class Mob(Sprite):
         # self.pos.y += self.vel.y
         self.pos += self.vel
         self.rect.center = self.pos
+
+class Platform(Sprite):
+    def __init__(self, width, height, x, y, color):
+        Sprite.__init__(self)
+        self.width = width
+        self.height = height
+        self.image = pg.Surface((self.width,self.height))
+        self.color = color
+        self.image.fill(self.color)
+        self.rect = self.image.get_rect()
+        self.pos = vec(WIDTH/2, HEIGHT/2)
+        # self.type = "Icy"
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
