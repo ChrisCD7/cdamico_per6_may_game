@@ -37,7 +37,10 @@ class Player(Sprite):
     ########### JUMP #################
     def jump(self):
         self.rect.x += 1
-        hits = pg.sprite.spritecollide(self, self.game.platforms, True)
+        hits = pg.sprite.spritecollide(self, self.game.platforms, False)
+        self.rect.x -= 1
+        if hits:
+            self.vel.y = -PLAYER_JUMP
     ############# inbounds ###############
     def inbounds(self):
         if self.rect.x > WIDTH - 50:
@@ -58,24 +61,23 @@ class Player(Sprite):
             print("i am off the top of the screen...")
     ############## MOB COLLIDE ################
     def mob_collide(self):
-        hits = pg.sprite.spritecollide(self, self.game.enemies, True)
-        if hits:
-            print("you collided with an enemy...")
-            self.game.score += 1
-            print(SCORE)
-
-
+            hits = pg.sprite.spritecollide(self, self.game.enemies, True)
+            if hits:
+                print("you collided with an enemy...")
+                self.game.score += 1
+                print(SCORE)
     ############ UPDATE ############
     def update(self):
         self.mob_collide()
         self.inbounds()
-        self.acc = (0, PLAYER_GRAV)
-        # self.acc = self.vel * PLAYER_FRICTION
+        # self.acc = (0, PLAYER_GRAV)
+        self.acc = vec(0, PLAYER_GRAV)
         self.input()
+        # self.acc = self.vel * PLAYER_FRICTION
+        self.acc.x = self.vel.x * PLAYER_FRICTION
         self.vel += self.acc
-        # self.pos += self.vel + 0.5 * self.acc
+        self.pos += self.vel + 0.5 * self.acc
         self.rect.center = self.pos
-        
 ################ MOB CLASS ####################
 class Mob(Sprite):
     def __init__(self,width,height,color):
