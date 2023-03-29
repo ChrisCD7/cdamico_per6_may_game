@@ -75,6 +75,7 @@ class Player(Sprite):
         self.vel += self.acc
         # self.pos += self.vel + 0.5 * self.acc
         self.rect.center = self.pos
+        
 ################ MOB CLASS ####################
 class Mob(Sprite):
     def __init__(self,width,height,color):
