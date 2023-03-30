@@ -26,14 +26,21 @@ class Player(Sprite):
         self.canjump = False
     def input(self):
         keystate = pg.key.get_pressed()
-        if keystate[pg.K_w]:
-            self.acc.y = -PLAYER_ACC
+        # if keystate[pg.K_w]:
+        #     self.acc.y = -PLAYER_ACC
         if keystate[pg.K_a]:
             self.acc.x = -PLAYER_ACC
-        if keystate[pg.K_s]:
-            self.acc.y = PLAYER_ACC
+        # if keystate[pg.K_s]:
+        #     self.acc.y = PLAYER_ACC
         if keystate[pg.K_d]:
             self.acc.x = PLAYER_ACC
+        # if keystate[pg.K_p]:
+        #     if PAUSED == False:
+        #         PAUSED = True
+        #         print(PAUSED)
+        #     else:
+        #         PAUSED = False
+        #         print(PAUSED)
     ########### JUMP #################
     def jump(self):
         self.rect.x += 1
@@ -43,7 +50,7 @@ class Player(Sprite):
             self.vel.y = -PLAYER_JUMP
     ############# inbounds ###############
     def inbounds(self):
-        if self.rect.x > WIDTH - 50:
+        if  self.rect.x > WIDTH - 50:
             self.pos.x = WIDTH - 25
             self.vel.x = 0
             print("i am off the right side of the screen...")
@@ -51,14 +58,16 @@ class Player(Sprite):
             self.pos.x = 25
             self.vel.x = 0
             print("i am off the left side of the screen...")
-        if self.rect.y > HEIGHT - 50:
-            self.pos.y = HEIGHT - 25
-            self.vel.y = 0 
+        if self.rect.y > HEIGHT:
             print("i am off the bottom of the screen")
         if self.rect.y < 0:
-            self.pos.y = 25
-            self.vel.y = 0
             print("i am off the top of the screen...")
+    def mob_collide(self):
+            hits = pg.sprite.spritecollide(self, self.game.enemies, True)
+            if hits:
+                print("you collided with an enemy...")
+                self.game.score += 1
+                print(SCORE)
     ############## MOB COLLIDE ################
     def mob_collide(self):
             hits = pg.sprite.spritecollide(self, self.game.enemies, True)
@@ -68,16 +77,12 @@ class Player(Sprite):
                 print(SCORE)
     ############ UPDATE ############
     def update(self):
-        self.mob_collide()
-        self.inbounds()
-        # self.acc = (0, PLAYER_GRAV)
-        self.acc = vec(0, PLAYER_GRAV)
-        self.input()
-        # self.acc = self.vel * PLAYER_FRICTION
-        self.acc.x = self.vel.x * PLAYER_FRICTION
-        self.vel += self.acc
-        self.pos += self.vel + 0.5 * self.acc
-        self.rect.center = self.pos
+            self.acc = vec(0, PLAYER_GRAV)
+            self.acc.x = self.vel.x * PLAYER_FRICTION
+            self.input()
+            self.vel += self.acc
+            self.pos += self.vel + 0.5 * self.acc
+            self.rect.midbottom = self.pos
 ################ MOB CLASS ####################
 class Mob(Sprite):
     def __init__(self,width,height,color):
@@ -115,7 +120,7 @@ class Mob(Sprite):
         self.rect.center = self.pos
 
 class Platform(Sprite):
-    def __init__(self, width, height, x, y, color):
+    def __init__(self, width, height, x, y, color, variant):
         Sprite.__init__(self)
         self.width = width
         self.height = height
@@ -128,3 +133,4 @@ class Platform(Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        self.variant = variant
