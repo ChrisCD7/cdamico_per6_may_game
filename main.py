@@ -5,6 +5,12 @@
 # Sources: 
 # testing github changes
 
+'''
+Goals:
+
+
+
+'''
 # import libs
 import pygame as pg
 import os
@@ -36,24 +42,18 @@ class Game:
         self.platforms = pg.sprite.Group()
         self.enemies = pg.sprite.Group()
         self.player = Player(self)
-        self.plat1 = Platform(WIDTH, 50, 0, HEIGHT-50, (0,0,0), "normal")
-        self.plat2 = Platform(150, 15, 200, 450, WHITE, "bouncy")
-        self.plat3 = Platform(150, 15, 100, 250, OFFWHITE, "disappaering")
-        self.plat4 = Platform(150, 15, 550, 250, WHITE, "icy")
-        ###### PLATFORM 1 ######
-        self.platforms.add(self.plat1)
+        self.plat1 = Platform(WIDTH, 50, 0, HEIGHT-50, (150,150,150), "normal")
+        # self.plat1 = Platform(WIDTH, 50, 0, HEIGHT-50, (150,150,150), "normal")
         self.all_sprites.add(self.plat1)
-        ###### PLATFORM 2 ######
-        self.all_sprites.add(self.plat2)
-        self.platforms.add(self.plat2)
-        ###### PLATFORM 3 ######
-        self.all_sprites.add(self.plat3)
-        self.platforms.add(self.plat3)
-        ###### PLATFORM 4 ######
-        self.all_sprites.add(self.plat4)
-        self.platforms.add(self.plat4)
 
+        self.platforms.add(self.plat1)
+        
         self.all_sprites.add(self.player)
+
+        for plat in PLATFORM_LIST:
+            p = Platform(*plat)
+            self.all_sprites.add(p)
+            self.platforms.add(p)
         for i in range(0,10):
             m = Mob(20,20,(0,255,0))
             self.all_sprites.add(m)
@@ -74,7 +74,7 @@ class Game:
                     self.playing = False
                 self.running = False
             if event.type == pg.KEYDOWN:
-                if event.key == pg.K_SPACE:
+                if event.key == pg.K_w:
                     self.player.jump()
     ############ Update ##############
     def update(self):

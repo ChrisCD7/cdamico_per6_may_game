@@ -15,3 +15,10 @@ FPS = 60
 RUNNING = True
 SCORE = 0
 PAUSED = False
+
+# Starting platforms
+PLATFORM_LIST = [(150, 15, 200, 450, WHITE, "bouncy"),
+                 (WIDTH, 50, 0, HEIGHT-50, (0,0,0), "normal"),
+                 (150, 15, 100, 250, OFFWHITE, "disappaering"),
+                 (150, 15, 550, 250, WHITE, "icy"),
+                 (150, 15, 50, 50, WHITE, "normal")]
