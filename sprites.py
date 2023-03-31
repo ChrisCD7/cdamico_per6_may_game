@@ -89,7 +89,7 @@ class Mob(Sprite):
         Sprite.__init__(self)
         self.width = width
         self.height = height
-        self.image = pg.Surface((self.width,self.height))
+        self.image = pg.Surface((self.width, self.height))
         self.color = color
         self.image.fill(self.color)
         self.rect = self.image.get_rect()
@@ -118,7 +118,23 @@ class Mob(Sprite):
         # self.pos.y += self.vel.y
         self.pos += self.vel
         self.rect.center = self.pos
+######## Plane Mobs #########
+class Plane_mob(Sprite):
+    def __init__(self,width,height,color):
+        Sprite.__init__(self)
+        self.width = width
+        self.height = height
+        self.image = pg.Surface((self.width, self.height))
+        self.color = (0,0,0)
+        self.image.fill(self.color)
+        self.rect =self.image.rect()
+        self.rect.center = (WIDTH/2, HEIGHT/2)
+        self.pos = vec(WIDTH/2, HEIGHT/2)
+        self.vel = vec(randint(1,5),randint(1,5))
+        self.acc = vec(1,1)
+        self.confric = 0.01
 
+######## platforms #########
 class Platform(Sprite):
     def __init__(self, width, height, x, y, color, variant):
         Sprite.__init__(self)

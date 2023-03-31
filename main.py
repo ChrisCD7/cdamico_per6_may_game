@@ -7,7 +7,8 @@
 
 '''
 Goals:
-
+Plane Mobs (fly horazontally across the screen)
+player gets taken off screen if hit (dies)
 
 
 '''
@@ -41,9 +42,13 @@ class Game:
         self.all_sprites = pg.sprite.Group()
         self.platforms = pg.sprite.Group()
         self.enemies = pg.sprite.Group()
+        self.plane = pg.sprite.Group()
+        self.plane = Plane_mob(self)
         self.player = Player(self)
         self.plat1 = Platform(WIDTH, 50, 0, HEIGHT-50, (150,150,150), "normal")
         # self.plat1 = Platform(WIDTH, 50, 0, HEIGHT-50, (150,150,150), "normal")
+        self.all_sprites.add(self.plane)
+        
         self.all_sprites.add(self.plat1)
 
         self.platforms.add(self.plat1)
