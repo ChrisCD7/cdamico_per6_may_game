@@ -43,7 +43,6 @@ class Game:
         self.platforms = pg.sprite.Group()
         self.enemies = pg.sprite.Group()
         self.plane = pg.sprite.Group()
-        self.plane = Plane_mob(self)
         self.player = Player(self)
         self.plat1 = Platform(WIDTH, 50, 0, HEIGHT-50, (150,150,150), "normal")
         # self.plat1 = Platform(WIDTH, 50, 0, HEIGHT-50, (150,150,150), "normal")
@@ -94,7 +93,7 @@ class Game:
                         PLAYER_FRICTION = 0
                         self.player.pos.y = hits[0].rect.top
                         self.player.vel.y = 0
-                elif hits[0].variant == "diappearing":
+                elif hits[0].variant == "disappearing":
                     hits[0].kill()
                 elif hits[0].variant == "bouncy":
                     self.player.pos.y = hits[0].rect.top
