@@ -145,8 +145,9 @@ class Mob(Sprite):
         self.rect.center = self.pos
 ######## Plane Mobs #########
 class P_mob(Sprite):
-    def __init__(self,width,height,color):
+    def __init__(self,width,height,color,game):
         Sprite.__init__(self)
+        self.game = game
         self.width = width
         self.height = height
         self.image = pg.Surface((self.width, self.height))
@@ -158,14 +159,16 @@ class P_mob(Sprite):
         self.vel = vec(randint(1,5),randint(1,5))
         self.acc = vec(1,1)
         self.cofric = 0.01
+        self.canjump = True
     ######## Confine #########
+    # keeps plane mobs in their set positions across screen 
     def confine(self):
         self.rect.x += 1
         hits = pg.sprite.spritecollide(self, self.game.platforms, False)
         self.rect.x -= 1
-        if hits:
+        if hits[0].variant == "pmob":
+            self.p_mob.pos.y = hits[0].rect.top
             self.vel.y = -MOB_JUMP
-            
     def inbounds(self):
         if self.rect.x > WIDTH:
             self.vel.x *= -1

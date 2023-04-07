@@ -62,6 +62,10 @@ class Game:
             m = Mob(20,20,(0,255,0))
             self.all_sprites.add(m)
             self.enemies.add(m)
+        for i in range(0,14):
+            p = P_mob(20,20,(0,0,0), self.game)
+            self.all_sprites.add(p)
+            self.enemies.add(p)
         self.run()
     def run(self):
         self.playing = True
@@ -98,6 +102,10 @@ class Game:
                 elif hits[0].variant == "bouncy":
                     self.player.pos.y = hits[0].rect.top
                     self.player.vel.y = -PLAYER_JUMP
+                elif hits[0].variant == "pmob":
+                    self.pmob.pos.y = hits[0].rect.top
+                    self.pmob.vel.y = -MOB_JUMP
+
     ############ Draw ##############
     def draw(self):
         self.screen.fill(BLUE)
