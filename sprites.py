@@ -189,6 +189,62 @@ class P_mob(Sprite):
         self.pos += self.vel
         self.rect.center = self.pos
 
+
+class Bouncyboy(Sprite):
+    def __init__(self, game, width,height, color):
+        Sprite.__init__(self)
+        self.game = game
+        self.width = width
+        self.height = height
+        self.image = pg.Surface((self.width,self.height))
+        self.color = color
+        self.image.fill(self.color)
+        self.rect = self.image.get_rect()
+        # self.rect.center = (WIDTH/2, HEIGHT/2)
+        self.pos = vec(randint(0,WIDTH), randint(0,HEIGHT))
+        self.vel = vec(0,0)
+        self.acc = vec(1,1)
+        self.cofric = 0.01
+        self.attached_now = False
+
+    # ...
+    def jump(self):
+        hits = pg.sprite.spritecollide(self, self.game.platforms, False)
+        if hits:
+            if self.vel.y > 1:
+                self.vel = vec(5,-10)
+            else:
+                self.pos.y = hits[0].rect.top
+                self.vel.y = 0
+        else:
+            self.vel.x = 0
+    def inbounds(self):
+        if self.rect.x > WIDTH:
+            self.vel.x *= -1
+            # self.acc = self.vel * -self.cofric
+        if self.rect.x < 0:
+            self.vel.x *= -1
+            # self.acc = self.vel * -self.cofric
+        if self.rect.y < 0:
+            self.vel.y *= -1
+            # self.acc = self.vel * -self.cofric
+        if self.rect.y > HEIGHT:
+            self.vel.y *= -1
+            # self.acc = self.vel * -self.cofric
+    def attached(self, obj):
+        if self.attached_now:
+            self.pos = obj.pos - vec(0,16) + vec(randint(-64,64), randint(-64,64))
+    def update(self):
+        if not self.attached_now:
+            self.acc = vec(0, PLAYER_GRAV)
+            self.jump()
+            self.acc.x = self.vel.x * PLAYER_FRICTION
+            self.vel += self.acc
+            self.pos += self.vel + 0.5 * self.acc
+        else:
+            self.attached(self.game.player)
+        self.rect.midbottom = self.pos
+
 ######## platforms #########
 class Platform(Sprite):
     def __init__(self, width, height, x, y, color, variant):
