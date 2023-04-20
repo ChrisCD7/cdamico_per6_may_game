@@ -43,6 +43,7 @@ class Game:
         self.platforms = pg.sprite.Group()
         self.enemies = pg.sprite.Group()
         self.plane = pg.sprite.Group()
+        self.bounceboy = pg.sprite.Group()
         self.player = Player(self)
         self.plat1 = Platform(WIDTH, 50, 0, HEIGHT-50, (150,150,150), "normal")
         # self.plat1 = Platform(WIDTH, 50, 0, HEIGHT-50, (150,150,150), "normal")
@@ -54,6 +55,7 @@ class Game:
         
         self.all_sprites.add(self.player)
 
+
         for plat in PLATFORM_LIST:
             p = Platform(*plat)
             self.all_sprites.add(p)
@@ -62,6 +64,11 @@ class Game:
             m = Mob(20,20,(0,255,0))
             self.all_sprites.add(m)
             self.enemies.add(m)
+        for i in range(0,10):
+            b = Bouncyboy(self, 20, 20, RED)
+            self.all_sprites.add(b)
+            self.enemies.add(b)
+
         # for i in range(0,14):
         #     p = P_mob(20,20,(0,0,0), self.game)
         #     self.all_sprites.add(p)

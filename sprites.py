@@ -1,14 +1,11 @@
 import pygame as pg
-
 from pygame.sprite import Sprite
-
 from settings import *
+from random import randint
+
 
 vec = pg.math.Vector2
 
-from random import randint
-
-# player class
 
 class Player(Sprite):
     def __init__(self, game):
@@ -191,7 +188,7 @@ class P_mob(Sprite):
 
 
 class Bouncyboy(Sprite):
-    def __init__(self, game, width,height, color):
+    def __init__(self, game, width, height, color):
         Sprite.__init__(self)
         self.game = game
         self.width = width
