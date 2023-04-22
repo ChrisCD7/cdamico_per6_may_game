@@ -38,4 +38,4 @@ PLATFORM_LIST = [(150, 15, 200, 450, WHITE, "bouncy"),
                 #  (800, 15, 0, 400, BLUE, "pmob"),
                 #  (800, 15, 0, 440, BLUE, "pmob"),
                 #  (800, 15, 0, 480, BLUE, "pmob"),
-                #  (800, 15, 0, 520, BLUE, "pmob")
+                #  (800, 15, 0, 520, BLUE, "pmob")]

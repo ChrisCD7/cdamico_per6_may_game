@@ -141,8 +141,8 @@ class Mob(Sprite):
         self.pos += self.vel
         self.rect.center = self.pos
 ######## Plane Mobs #########
-class P_mob(Sprite):
-    def __init__(self,width,height,color,game):
+class Plane(Sprite):
+    def __init__(self,game,width,height,color):
         Sprite.__init__(self)
         self.game = game
         self.width = width
